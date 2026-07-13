@@ -1,0 +1,62 @@
+﻿.register-page {
+    background: url("/images/Register-bg/Register_page_Image.jpg");
+    min-height: 100vh;
+}
+ 
+.custom-text {
+    color: white;
+}
+
+.custom-text1 {
+    color: white;
+}
+
+.login-button {
+    color: blue;
+}
+
+.register-card {
+    background: rgba(255, 219, 187, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(100px);
+    margin-top: 30px;
+}
+
+
+.register-card .form-control {
+    border-radius: 10px;
+}
+
+.register-card .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    border-color: #86b7fe;
+}
+
+
+.register-card .text-danger.small {
+    margin-top: 4px;
+}
+
+.register-card .alert-danger {
+    border-radius: 10px;
+}
+
+
+.register-card .btn-lg {
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+}
+
+.register-card hr {
+    opacity: 0.15;
+}
+
+.register-page .text-secondary {
+    color: #6c757d !important;
+}
+
+
+.register-page h1 {
+    color: #111;
+}

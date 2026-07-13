@@ -1,0 +1,65 @@
+﻿
+.login-page {
+    
+    background: url("/images/login-bg/login_background_image.jpg") !important;
+    min-height: 100vh;
+}
+
+
+.text-secondary {
+    color: white !important;
+}
+
+
+.login-page h1 {
+    color: white !important;
+}
+
+.login-card .form-check-label {
+    color: white !important;
+}
+
+
+.login-logo {
+    height: 40px;
+    width: auto;
+    opacity: 0.95;
+}
+
+.login-card {
+    background: rgba(255, 219, 187, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: saturate(180%) blur(100px);
+    margin-top: 30px;
+}
+
+
+.login-card .form-control {
+    border-radius: 10px;
+}
+
+.login-card .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    border-color: #86b7fe;
+}
+
+
+.login-card .text-danger.small {
+    margin-top: 4px;
+}
+
+.login-card .alert-danger {
+    border-radius: 10px;
+}
+
+
+.login-card .btn-lg {
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+}
+
+
+.login-card hr {
+    opacity: 0.15;
+}

@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "OrderFailure";
+}
+
+<div class="container my-5">
+
+    <!-- Failure Card -->
+    <div class="card shadow-sm border-0 rounded-4 p-4 mx-auto" style="max-width: 600px;">
+
+        <div class="text-center">
+
+            <!-- Failure Icon -->
+            <div class="mx-auto mb-3" style="width: 80px; height: 80px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"
+                     fill="none" viewBox="0 0 24 24" stroke="#dc3545" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10" stroke="#dc3545" stroke-width="1.2" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 9l6 6m0-6l-6 6" stroke="#dc3545" stroke-width="2" />
+                </svg>
+            </div>
+
+            <!-- Title -->
+            <h1 class="h3 fw-bold mb-2 text-danger">Order Failed</h1>
+
+            <!-- Message -->
+            <p class="text-muted mb-4">
+                Something went wrong while processing your order.<br />
+                Please try again later.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    .text-danger {
+        color: #dc3545 !important;
+    }
+</style>

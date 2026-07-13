@@ -1,0 +1,115 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BookstaGram - Online book store</title>
+ 
+
+<link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
+ 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+ 
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+ 
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    
+    <nav id="nav" class="navbar navbar-expand-lg bg-light navbar-light border-bottom" data-bs-theme="light">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="/Home/Index">
+                <span class="brand-badg fw-bold">BookstaGram</span>
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMain">
+
+                @* <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul> *@
+
+                @* mx-auto *@
+                <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link nav-underline" href="/Home/Index">
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+
+                    @* <li class="nav-item">
+                        <a class="nav-link nav-underline" href="/Home/About">
+                            <span class="nav-text">About</span>
+                        </a>
+                    </li> *@
+
+                    @if (User.IsInRole(Roles.Admin.ToString()))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link nav-underline" href="/Book">
+                                <span class="nav-text">Dashboard</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+                <div class="ms-lg-auto">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <div class="">
+            <partial name="_Notifications" />
+        </div>
+
+        @RenderBody()
+    </div>
+ 
+    <!-- Bootstrap JS (CDN). You can switch to local bundle if you prefer -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+ 
+    <script>
+
+        const key = "scroll:" + location.pathname + location.search;
+        window.addEventListener("beforeunload", () => {
+            sessionStorage.setItem(key, window.scrollY);
+        });
+        window.addEventListener("load", () => {
+            const pos = sessionStorage.getItem(key);
+            if (pos !== null) {
+                window.scrollTo(0, parseInt(pos));
+            }
+        });
+
+        loadCartCount();
+        async function loadCartCount() {
+            try {
+                var response = await fetch(`/Cart/GetTotalItemInCart`);
+                if (response.status === 200) {
+                    var result = await response.json();
+                    var cartCountEl = document.getElementById("cartCount");
+                    if (cartCountEl) cartCountEl.innerHTML = result;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

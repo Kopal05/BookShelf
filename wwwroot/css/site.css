@@ -1,0 +1,161 @@
+﻿body {
+    background: rgba(255, 219, 187, 0.2);
+    font-family: 'Century Gothic', Arial;
+}
+
+#cartCount {
+    transform: translate(-17px, 5px) !important;
+}
+
+.bg-light {
+    background-color: rgba(240, 199, 94, 0.3) !important;
+    border-bottom: 1px solid #f0c75e;
+}
+
+.ui-btn {
+    background-color: #f0c75e;
+    border-color: orange;
+    color: black;
+}
+
+
+.nav-auth .btn-brown,
+.nav-auth .btn-brown-dark {
+    color: #fff !important;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.2;
+    transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, filter .15s ease;
+}
+
+.nav-auth .btn-brown {
+    background-color: #8B5E3C;
+    border-color: #6B4F3A;
+}
+
+.nav-auth .btn-brown-dark {
+    background-color: #6B4F3A;
+    border-color: #5A3C28;
+}
+
+.nav-auth .btn-brown:hover,
+.nav-auth .btn-brown-dark:hover,
+.nav-auth .btn-brown:focus,
+.nav-auth .btn-brown-dark:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,.18);
+    filter: brightness(.97);
+    color: #fff !important;
+    text-decoration: none;
+}
+
+.nav-auth .nav-item + .nav-item {
+    margin-left: .5rem;
+}
+
+.navbar .bi-cart {
+    color: #000;
+}
+
+.nav-text {
+    color: #8B5E3C;
+}
+
+.brand-badge {
+    background-color: #8B5E3C;
+    color: #fff !important;
+    border: 1px solid #6B4F3A;
+    padding: 6px 12px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.brand-badge .bi {
+    color: #fff;
+}
+
+.brand-badge:hover {
+    background-color: #7B5336;
+    border-color: #5A3C28;
+    text-decoration: none;
+}
+
+
+/*.btn.btn-primary {
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+
+.btn.btn-primary:hover {
+    background-color: brown;
+    border-color: brown;
+}
+
+.btn.btn-success {
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+
+.btn.btn-success:hover {
+    background-color: brown;
+    border-color: brown;
+}
+
+.btn.btn-info {
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+
+.btn.btn-info:hover {
+    background-color: brown;
+    border-color: brown;
+}
+*/
+
+/* About Page Styles */
+.about-bg {
+    background: rgba(255, 219, 187, 0.2);
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+.about-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    border: 1px solid #f3d5bf;
+}
+
+.about-heading {
+    font-weight: 800;
+    color: #5A3C28;
+}
+
+.about-subheading {
+    font-weight: 700;
+    color: #7B5336;
+    margin-top: 20px;
+}
+
+.bullet-list li {
+    margin-bottom: 8px;
+}
+
+.team-badge {
+    background: #8B5E3C;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 600;
+}
+

@@ -1,0 +1,171 @@
+﻿@model ShoppingCart
+@{
+    ViewData["Title"] = "GetUserCart";
+}
+
+<div class="container my-4">
+    @if (Model != null && Model.CartDetails != null && Model.CartDetails.Count > 0)
+    {
+        <!-- Page Header -->
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h2 class="h4 mb-0">My Cart</h2>
+            <span class="badge bg-primary-subtle text-primary border border-primary rounded-pill px-3 py-2">
+                @Model.CartDetails.Count item@(Model.CartDetails.Count > 1 ? "s" : "")
+            </span>
+        </div>
+
+        <!-- Cart Card -->
+        <div class="card shadow-sm rounded-4 border-0 overflow-hidden">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" class="ps-4">Book</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Genre</th>
+                                <th scope="col">Unit Price (INR)</th>
+                                <th scope="col">Total</th>
+                                <th scope="col" class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CartDetails)
+                            {
+                                <tr class="border-top">
+                                    <td class="ps-4">
+                                        <div class="fw-semibold text-dark">@item.Book.BookName</div>
+                                        <div class="small text-muted">Book ID: @item.BookId</div>
+                                    </td>
+                                    <td>
+                                        <div class="" style="max-width: 90px;">
+                                            @if (string.IsNullOrEmpty(item.Book.Image))
+                                            {
+                                                <img src="/images/book-cover/NoBookCover.png" style="width: 100px" class="img-fluid rounded-3 object-fit-cover border" alt="No image available" />
+                                            }
+                                            else
+                                            {
+                                                <img src="/images/book-cover/@item.Book.Image" style="width: 100px" class="img-fluid rounded-3 object-fit-cover border" alt="@item.Book.BookName" />
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge text-bg-secondary-subtle border border-secondary">
+                                            @item.Book.Genre.GenreName
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-semibold">₹ @($"{item.Book.Price:N2}")</span>
+                                            <span class="text-muted small">x @item.Quantity</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="fw-semibold">
+                                        ₹ @((item.Book.Price * item.Quantity).ToString("N2"))
+                                    </td>
+
+                                    <td class="text-center">
+                                        <div class="d-inline-flex align-items-center gap-2">
+                                            @* Increase Quantity button should be invisible if not enough stock *@
+                                            @if (item.Quantity < item.Book.Stock.Quantity)
+                                            {
+                                                <a class="btn btn-outline-success btn-sm rounded-pill px-3"
+                                                   href="/Cart/AddItem?bookId=@item.BookId&&redirect=1"
+                                                   aria-label="Increase quantity">
+                                                    <span class="fw-bold">+</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge border border-warning-subtle rounded-pill px-3 py-2 out-of-stock">
+                                                    Out of stock
+                                                </span>
+                                            }
+
+                                            @* Decrement button *@
+                                            <a class="btn btn-outline-danger btn-sm rounded-pill px-3"
+                                               href="/cart/removeitem?bookid=@item.BookId"
+                                               aria-label="Decrease quantity">
+                                                <span class="fw-bold">-</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Footer Summary -->
+                <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 p-3 p-md-4 border-top">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-primary-subtle text-primary rounded-3 px-3 py-2 fw-semibold">
+                            Total (INR)
+                        </div>
+
+                        <div class="display-6 fs-3 m-0 fw-bold text-dark">
+                            ₹ @(Model.CartDetails.Select(x => x.Book.Price * x.Quantity).Sum().ToString("N2"))
+                        </div>
+
+                    </div>
+
+                    <a class="btn btn-primary btn-lg rounded-3 shadow-sm px-4 ui-btn"
+                       href="/Cart/Checkout">
+                        Proceed to Checkout
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Empty State -->
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-5 text-center">
+                <div class="mx-auto mb-3" style="width: 64px; height: 64px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor" class="text-muted">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M2.25 3h1.386c.51 0 .955.343 1.092.835l.383 1.386M7.5 14.25h9.75m-12-9h13.036c.68 0 1.177.64 1.02 1.302l-1.5 6.5a1.125 1.125 0 01-1.095.873H7.5m0 0L6 6.75m1.5 7.5L5.25 18.75a1.5 1.5 0 001.5 1.5H18m0 0a1.5 1.5 0 001.5-1.5M18 20.25a1.5 1.5 0 01-1.5 1.5H8.25" />
+                    </svg>
+                </div>
+                <h3 class="h5 mb-2">Your cart is empty</h3>
+                <p class="text-muted mb-4">Looks like you haven’t added any books yet.</p>
+                <a href="/Home#book-section"
+                   class="btn btn-outline-primary rounded-3 px-4">
+                    Browse Books
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    /* Subtle modern tweaks without changing logic */
+    .table > :not(caption) > * > * {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        vertical-align: middle;
+    }
+
+    .ratio .object-fit-cover {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    .bg-primary-subtle {
+        background-color: rgba(13,110,253,.08);
+    }
+
+    .text-bg-secondary-subtle {
+        color: #495057;
+        background-color: rgba(108,117,125,.12);
+    }
+
+    .out-of-stock {
+        color: #664d03 !important;
+        background-color: #fff3cd !important;
+    }
+</style>

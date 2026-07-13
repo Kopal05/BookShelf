@@ -1,0 +1,183 @@
+﻿@model BookDisplayModel
+
+<style>
+    body {
+        background: rgba(255, 219, 187, 0.2);
+    }
+
+    .hero{
+        position: relative;
+        margin-bottom: 2rem;
+    }
+    #landing_img {
+        opacity: 80%;
+        width: 100%;
+    }
+
+    .heading {
+        position: absolute;
+        margin-top: -15rem;
+        width: 100%;
+    }
+
+    .main-heading {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-weight: 600;
+        font-size: 2.5rem;
+        text-align: center;
+        text-shadow: 2px 2px black;
+        font-family: Garamond
+    }
+
+    .sub-heading {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-size: 1.3rem;
+        text-align: center;
+        text-shadow: 2px 2px 5px black;
+        font-family: Garamond
+    }
+
+    .image-container {
+        position: relative;
+        z-index: 1;
+        object-fit: fill;
+        overflow: hidden;
+        height: 10%;
+        max-height: 400px;
+        justify-content: center;
+    }
+
+    .card{
+        width: 11rem;
+        height: 18rem;
+        transition: transform .3s ease;
+        border-color: rgba(255, 219, 187, 0.8);
+        
+    }
+
+    /* .card:hover {
+        transform: scale(1.1);
+    } */
+
+    .card:hover {
+        /* transform: scale(1.05); */
+        /* transform: translateY(-8px); */
+        box-shadow: 0 0px 0px 2px wheat;
+    }
+
+    /* .card .card-body{
+       transition: transform .4s ease;
+    } */
+
+    /* .card:hover .card-body {
+        transform: translateY(-7rem);
+    } */
+
+    .book-thumbnail img{
+        height: 230px;
+        object-fit: cover
+    }
+
+    /* .book-thumbnail {
+        
+        transition: transform .4s ease;
+    }
+
+    .card:hover .book-thumbnail {
+        transform: scale(1.07);
+    } */
+
+    .add-cart-btn {
+        background-color: orange;
+    }
+
+    .hidden-info {
+        margin-top: 0.8rem; 
+    }
+
+    #book-section{
+        position: relative;
+    }
+    .additional-info{
+        font-size: .7rem;
+        color: rgba(0,0,0,.4);
+        margin-bottom: .3rem;
+        margin-top: -.5rem;
+    }
+    .row{
+        margin: 0;
+        margin-bottom: 3rem;
+    }
+</style>
+
+@* <section class="hero text-center">
+    <div class="image-container">
+        <img id="landing_img" src="/Images/landing-page/landing_page.png" class="img-fluid" alt="...">
+    </div>
+    <div class="heading">
+        <p class="main-heading">For minds that wander and words that last.</p>
+        <p class="sub-heading">Discover affordable books in one place.</p>
+    </div>
+</section> *@
+
+<section id="book-section">
+    <div class="my-2">
+        <form asp-action="Index" method="get" class="row row-cols-lg-auto g-3 align-items-center justify-content-center">
+            <div class="col-12">
+                <label class="visually-hidden" for="genreId">All Genres</label>
+                <select class="form-select" id="genreId" name="genreId">
+                    <option selected>All Genres</option>
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <option selected="@(genre.Id == Model.GenreId)" value="@genre.Id">@genre.GenreName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-12">
+                <label class="visually-hidden" for="sterm">Search by title</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" value="@Model.STerm" id="sterm" name="sterm" placeholder="Search by title">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary ui-btn">Search</button>
+                <a href="/Home/Index" class="btn btn-dark">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="card-outer w-100 mt-4 d-flex flex-wrap justify-content-center">
+        @foreach (var book in Model.Books)
+        {
+            <a class="text-decoration-none mx-3 mb-4 card overflow-hidden rounded-3" href="/book/ViewBook/@book.Id">
+                    <div class="book-thumbnail">
+                        @if (string.IsNullOrEmpty(book.Image))
+                        {
+                            <img style="width:100%;" src="/images/book-cover/NoBookCover.png" class="" alt="...">
+                        }
+                        else
+                        {
+                            <img class="pe-3 pt-3 ps-3" style="width:100%;" src="/images/book-cover/@book.Image" alt="...">
+                        }
+                    </div>
+                    <div class="card-body">
+                        <p class="additional-info card-text text-center fst-italic">
+                            <b>by @book.AuthorName <br /></b>
+                        </p>
+                        <h5 class="card-text fs-6 fw-bolder text-nowrap text-truncate text-center text-black">@book.BookName</h5>
+
+                    </div>
+            </a>
+        }
+    </div>
+</section>
+
+
+
+

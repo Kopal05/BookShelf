@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Order>
+
+<div class="container my-4">
+
+    <a href="/Identity/Account/Manage" class="btn btn-secondary mb-3 rounded-3 px-4">
+        ← Back
+    </a>
+
+    <h3 class="mb-4 fw-bold">My Orders</h3>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+            <div class="card-body p-0">
+
+                <table class="table align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Order Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            <!-- Main Order Row -->
+                            <tr class="border-top">
+                                <td class="ps-4">
+                                    <div class="fw-semibold">
+                                        @order.CreateDate.ToString("dd-MM-yyyy")
+                                    </div>
+                                    <div class="small text-muted">
+                                        Order ID: @order.Id
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="badge text-bg-primary-subtle border border-primary px-3 py-2 rounded-pill">
+                                        @order.OrderStatus.StatusName
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <!-- Order Details Section -->
+                            @if (order.OrderDetail != null && order.OrderDetail.Count > 0)
+                            {
+                                <tr>
+                                    <td colspan="2" class="p-4 bg-light">
+
+                                        <div class="card border-0 shadow-sm rounded-4">
+                                            <div class="card-body p-0">
+
+                                                <table class="table table-borderless align-middle mb-0">
+                                                    <tbody>
+
+                                                        <!-- Total -->
+                                                        <tr class="border-bottom">
+                                                            <td class="fw-semibold">Total</td>
+                                                            <td class="fw-bold text-success fs-5">
+                                                                ₹ @(order.OrderDetail.Select(item => item.Book.Price * item.Quantity).Sum().ToString("N2"))
+                                                            </td>
+                                                        </tr>
+
+                                                        <!-- Titles -->
+                                                        <tr class="table-light fw-semibold">
+                                                            <td>Book</td>
+                                                            <td>Image</td>
+                                                            <td>Genre</td>
+                                                            <td>Unit Price (INR)</td>
+                                                            <td>Total Price</td>
+                                                        </tr>
+
+                                                        @foreach (var item in order.OrderDetail)
+                                                        {
+                                                            <tr class="border-bottom">
+                                                                <!-- Book Name -->
+                                                                <td class="fw-semibold">@item.Book.BookName</td>
+
+                                                                <!-- Image -->
+                                                                <td>
+                                                                    @if (string.IsNullOrEmpty(item.Book.Image))
+                                                                    {
+                                                                        <img src="/images/book-cover/NoBookCover.png" class="rounded" style="width:80px;height:100px;" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img src="/images/book-cover/@item.Book.Image" class="rounded" style="width:80px;height:100px;" />
+                                                                    }
+                                                                </td>
+
+                                                                <!-- Genre -->
+                                                                <td>
+                                                                    <span class="badge text-bg-secondary-subtle border border-secondary rounded-pill px-3 py-1">
+                                                                        @item.Book.Genre.GenreName
+                                                                    </span>
+                                                                </td>
+
+                                                                <!-- Unit Price -->
+                                                                <td>
+                                                                    ₹ @item.Book.Price.ToString("N2")
+                                                                    <span class="text-muted"> x @item.Quantity</span>
+                                                                </td>
+
+                                                                <!-- Total Price -->
+                                                                <td class="fw-semibold">
+                                                                    ₹ @((item.Book.Price* item.Quantity).ToString("N2"))
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm border-0 rounded-4 p-5 text-center overflow-hidden">
+            <h4 class="mb-2">No Orders Found</h4>
+            <p class="text-muted mb-4">You haven't placed any orders yet.</p>
+            <a href="/Home#book-section" class="btn btn-primary px-4 rounded-3">Browse Books</a>
+        </div>
+    }
+</div>
+
+<style>
+    .text-bg-primary-subtle {
+        background-color: rgba(13, 110, 253, .15);
+        color: #0a58ca;
+    }
+
+    .text-bg-secondary-subtle {
+        background-color: rgba(108,117,125,.15);
+        color: #6c757d;
+    }
+</style>
